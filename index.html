@@ -1,1 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JoGoat Games - Your Game Site For The Real Ones</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font: Inter for a modern, clean look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Custom CSS for font and body background */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a2e; /* Deep dark background */
+            color: #e0e0e0; /* Light gray text for contrast */
+        }
 
+        /* Custom glow effect for active navigation buttons and game cards */
+        .nav-link.active, .game-card:hover {
+            box-shadow: 0 0 15px rgba(135, 206, 235, 0.6); /* Sky blue glow */
+            border-color: #87ceeb; /* Sky blue border */
+        }
+
+        /* Animation for page transitions */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .page-transition {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        /* Button hover effect */
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(135, 206, 235, 0.4);
+        }
+
+        /* Ensure iframe fills its container */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border-radius: 0.75rem; /* Match parent rounded-lg */
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header / Navigation Bar -->
+    <header class="bg-gray-800 p-4 shadow-lg rounded-b-xl">
+        <nav class="container mx-auto flex flex-col sm:flex-row justify-between items-center">
+            <a href="#" class="text-3xl font-extrabold text-white mb-4 sm:mb-0">
+                JoGoat<span class="text-sky-400">Games</span>
+            </a>
+            <div class="flex space-x-4">
+                <button data-page="home" class="nav-link px-4 py-2 rounded-lg text-lg font-semibold transition-all duration-300
+                                               bg-gray-700 hover:bg-sky-600 border border-gray-600 active:bg-sky-700 active">
+                    Home
+                </button>
+                <button data-page="games" class="nav-link px-4 py-2 rounded-lg text-lg font-semibold transition-all duration-300
+                                               bg-gray-700 hover:bg-sky-600 border border-gray-600">
+                    Games
+                </button>
+                <button data-page="about" class="nav-link px-4 py-2 rounded-lg text-lg font-semibold transition-all duration-300
+                                               bg-gray-700 hover:bg-sky-600 border border-gray-600">
+                    About
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 container mx-auto p-6 sm:p-8 mt-8">
+        <!-- Home Page -->
+        <section id="page-home" class="page page-transition text-center">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6">
+                Dive Into The <span class="text-sky-400">Gaming Universe</span>
+            </h1>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-10">
+                Your ultimate destination for free, high-quality web games. No downloads, just instant fun.
+                Explore our collection and start playing today!
+            </p>
+            <button class="btn-primary bg-sky-600 text-white text-xl font-bold py-4 px-10 rounded-full shadow-lg
+                           transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-sky-500/50"
+                    onclick="showPage('games')">
+                Explore Games
+            </button>
+        </section>
+
+        <!-- Games Page -->
+        <section id="page-games" class="page hidden">
+            <h2 class="text-4xl font-bold text-center text-sky-400 mb-10">Our Game Collection</h2>
+            <div id="game-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Game cards will be injected here by JavaScript -->
+            </div>
+        </section>
+
+        <!-- About Page -->
+        <section id="page-about" class="page hidden">
+            <div class="bg-gray-800 p-8 rounded-lg shadow-xl max-w-3xl mx-auto border border-gray-700">
+                <h2 class="text-4xl font-bold text-center text-sky-400 mb-6">About JoGoat Games</h2>
+                <p class="text-lg text-gray-300 leading-relaxed mb-4">
+                    JoGoat Games is built for gamers by gamers. We believe in providing a seamless and enjoyable
+                    experience for playing web-based games directly in your browser. Our platform focuses on
+                    performance, simplicity, and a curated selection of engaging titles.
+                </p>
+                <p class="text-lg text-gray-300 leading-relaxed">
+                    We are constantly updating our library with new and exciting games. Our mission is to be your
+                    go-to for quick gaming sessions and discovering hidden gems.
+                </p>
+            </div>
+        </section>
+
+        <!-- Game Player Page -->
+        <section id="page-player" class="page hidden">
+            <div class="mb-6">
+                <button class="bg-gray-700 text-white font-bold py-2 px-6 rounded-lg hover:bg-gray-600 transition-colors
+                               focus:outline-none focus:ring-2 focus:ring-gray-500"
+                        onclick="showPage('games')">
+                    &larr; Back to Games
+                </button>
+            </div>
+            <div id="game-frame-container" class="w-full h-[70vh] bg-gray-800 rounded-lg shadow-xl border border-sky-700 overflow-hidden">
+                <!-- Game iframe will be loaded here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 p-6 text-center text-gray-500 text-sm mt-auto rounded-t-xl shadow-inner">
+        <p>&copy; 2025 JoGoat Games. All rights reserved.</p>
+        <p class="mt-2">Built with 💪 and Tailwind CSS</p>
+    </footer>
+
+    <script>
+        // Array of game objects
+        const games = [
+            {
+                id: 'space-shooter',
+                title: 'Galactic Defender',
+                description: 'Defend the galaxy from alien invaders in this classic top-down shooter!',
+                thumbnail: 'https://placehold.co/400x250/1f2937/a5f3fc?text=Game+1', // Placeholder image
+                url: 'placeholder' // Example URL, replace with actual game URLs
+            },
+            {
+                id: 'puzzle-mania',
+                title: 'Block Puzzle Mania',
+                description: 'Test your logic and speed in this addictive block-matching puzzle game.',
+                thumbnail: 'https://placehold.co/400x250/1f2937/a5f3fc?text=Game+2',
+                url: 'http//www.retrogames.cc/arcade-games/tetris-world.html'
+            },
+            {
+                id: 'racing-fury',
+                title: 'Pixel Racer',
+                description: 'Experience high-speed pixelated racing action on challenging tracks.',
+                thumbnail: 'https://placehold.co/400x250/1f2937/a5f3fc?text=Game+3',
+                url: 'https://wretrogames.cc/arcade-games/outrun.html'
+            },
+            {
+                id: 'platform-adventure',
+                title: 'Jumpy Hero',
+                description: 'Embark on an epic adventure, jumping through levels and collecting treasures.',
+                thumbnail: 'https://placehold.co/400x250/1f2937/a5f3fc?text=Game+4',
+                url: 'https://retrogames.cc/arcade-games/super-mario-bros.html'
+            },
+            {
+                id: 'snake-classic',
+                title: 'Retro Snake',
+                description: 'The timeless classic! Grow your snake and avoid obstacles.',
+                thumbnail: 'https://placehold.co/400x250/1f2937/a5f3fc?text=Game+5',
+                url: 'https://wretrogames.cc/arcade-games/snake.html'
+            },
+            {
+                id: 'pong-duel',
+                title: 'Pong Duel',
+                description: 'Challenge a friend or the AI in this iconic arcade table tennis game.',
+                thumbnail: 'https://placehold.co/400x250/1f2937/a5f3fc?text=Game+6',
+                url: 'https://www.retrogames.cc/arcade'
+            }
+        ];
+
+        // Get references to DOM elements
+        const pages = document.querySelectorAll('.page');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const gameListContainer = document.getElementById('game-list');
+        const gameFrameContainer = document.getElementById('game-frame-container');
+
+        /**
+         * Shows the specified page and updates navigation button active state.
+         * @param {string} pageId - The ID of the page to show (e.g., 'home', 'games').
+         */
+        function showPage(pageId) {
+            // Hide all pages first
+            pages.forEach(page => {
+                page.classList.add('hidden');
+                page.classList.remove('page-transition'); // Remove to re-trigger animation
+            });
+
+            // Show the target page and apply transition
+            const targetPage = document.getElementById(`page-${pageId}`);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+                // Trigger reflow to restart CSS animation
+                void targetPage.offsetWidth;
+                targetPage.classList.add('page-transition');
+            }
+
+            // Update active state for navigation links
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.dataset.page === pageId);
+            });
+
+            // Update URL hash for direct linking and browser history
+            window.location.hash = pageId;
+        }
+
+        /**
+         * Loads a game into the iframe and displays the player page.
+         * @param {string} gameId - The ID of the game to load.
+         */
+        function loadGame(gameId) {
+            const game = games.find(g => g.id === gameId);
+            if (!game || !game.url) {
+                console.error('Game not found or URL is missing:', gameId);
+                // In a real app, you might show a user-friendly error message here
+                return;
+            }
+
+            // Set the iframe src to the game URL
+            gameFrameContainer.innerHTML = `<iframe src="${game.url}" title="${game.title}" allowfullscreen></iframe>`;
+            showPage('player'); // Switch to the game player page
+        }
+
+        /**
+         * Initializes the website: populates game list and sets initial page.
+         */
+        function initialize() {
+            // Populate the game list dynamically
+            games.forEach(game => {
+                const gameCardHtml = `
+                    <div class="game-card bg-gray-800 rounded-lg shadow-lg overflow-hidden
+                                p-6 flex flex-col text-center border border-gray-700
+                                transition-all duration-300 hover:scale-105 cursor-pointer">
+                        <img src="${game.thumbnail}" alt="${game.title}" class="w-full h-40 object-cover rounded-md mb-4 border border-gray-600">
+                        <h3 class="text-2xl font-bold text-sky-400 mb-2">${game.title}</h3>
+                        <p class="text-gray-300 flex-grow mb-4">${game.description}</p>
+                        <button onclick="loadGame('${game.id}')"
+                                class="btn-primary bg-sky-600 text-white font-semibold py-3 px-6 rounded-full
+                                       transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-sky-500/50">
+                            Play Now
+                        </button>
+                    </div>
+                `;
+                gameListContainer.innerHTML += gameCardHtml;
+            });
+
+            // Add event listeners for navigation buttons
+            navLinks.forEach(button => {
+                button.addEventListener('click', () => {
+                    showPage(button.dataset.page);
+                });
+            });
+
+            // Determine initial page based on URL hash or default to 'home'
+            const initialPage = window.location.hash.substring(1) || 'home';
+            showPage(initialPage);
+        }
+
+        // Initialize the website when the window loads
+        window.onload = initialize;
+
+        // Handle browser back/forward button for navigation
+        window.onpopstate = () => {
+            const pageId = window.location.hash.substring(1) || 'home';
+            showPage(pageId);
+        };
+    </script>
+</body>
+</html>
